@@ -2,11 +2,16 @@ using UnityEngine;
  using System.Collections;
  using System.Collections.Generic;
 
-public class Basket : MonoBehaviour
-{
-    void Start() { } // We’ll add code to Start() in Code Listing 29.12
+public class Basket : MonoBehaviour {
+    public ScoreCounter scoreCounter;
+    void Start() {
+        // Find a GameObject named ScoreCounter in the Scene Hierarchy
+        GameObject scoreGO = GameObject.Find("ScoreCounter");         // b
+        // Get the ScoreCounter (Script) component of scoreGO
+        scoreCounter = scoreGO.GetComponent<ScoreCounter>();            // c
+    }
 
-    void Update()
+void Update()
     {
         // Get the current screen position of the mouse from Input
         Vector3 mousePos2D = Input.mousePosition;                             // a
@@ -25,13 +30,12 @@ public class Basket : MonoBehaviour
         this.transform.position = pos;
     }
 
-    void OnCollisionEnter(Collision coll)
-    {
+    void OnCollisionEnter(Collision coll) {
         // Find out what his this basket
         GameObject collidedWith = coll.gameObject;
-        if (collidedWith.CompareTag("Apple"))
-        {
+        if (collidedWith.CompareTag("Apple")) {
             Destroy(collidedWith);
+            scoreCounter.score += 100;
         }
     }
 }
