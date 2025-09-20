@@ -7,8 +7,11 @@ public class Apple : MonoBehaviour {                                    // a
     void Update() {
         if (transform.position.y < bottomY) {
             Destroy(this.gameObject);                                 // c
-        }
-    }
 
-    // void Start() {…}  // Please delete the unused Start() method
+            // Get a reference to the ApplePicker component of Main Camera
+            ApplePicker apScript = Camera.main.GetComponent<ApplePicker>();           // b
+            // Call the public AppleMissed() method of apScript
+            apScript.AppleMissed();                                                   // c
+        }                                                                             // a
+    }
 }
